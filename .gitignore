@@ -1,0 +1,13 @@
+
+NightFury/Library/
+NightFury/Logs/
+NightFury/Temp/
+NightFury/obj/
+NightFury/.vs/
+NightFury/Assets/FourEvilDragonsHP/SRP/
+NightFury/Assembly-CSharp-Editor.csproj
+NightFury/Assembly-CSharp.csproj
+NightFury/NightFury.sln
+NightFury/Oculus.VR.csproj
+NightFury/Oculus.VR.Editor.csproj
+NightFury/Oculus.VR.Scripts.Editor.csproj
