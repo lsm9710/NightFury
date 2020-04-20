@@ -14,7 +14,7 @@ public class TestGrab : MonoBehaviour
 
     private bool isTouched_L = false;
     private bool isTouched_R = false;
-    private bool isGrabed_L = false;
+    public bool isGrabed_L = false;
     private bool isGrabed_R = false;
 
     // Update is called once per frame
