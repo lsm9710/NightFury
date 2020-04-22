@@ -22,9 +22,12 @@ public class TestDragonMove : MonoBehaviour
     public float rotSpeed = 5f;
     //전진속도
     public float moveSpeed = 10f;
+    //감소속도? 마찰력?
+    public float drag = 1.0f;
 
     //고삐를 쥐고 있는지 알아야한다
     TestGrab testGrab;
+    public Transform leftHand;
 
     //컨트롤러의 회전값을 저장할 변수
     Quaternion lr;
@@ -39,13 +42,42 @@ public class TestDragonMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckLocalRot();
+        //CheckLocalRot();
         RotTheDragon();
     }
 
-    private void GoForward()
+    public void GoForward()
     {
-        rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
+        Acceleration();
+        
+        drag = 1.0f;
+        //rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
+        moveSpeed = moveSpeed * drag;
+        dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
+        print(moveSpeed);
+    }
+
+    float currentTime;
+    public float stack1;
+    public float stack2;
+    public float stack3;
+    private void Acceleration()
+    {
+        //currentTime += Time.deltaTime;
+        moveSpeed += 2.5f;
+        //if (moveSpeed >= 30f)
+        //{
+
+        //}
+    }
+
+
+    public void SlowDown()
+    {
+
+        drag = 0.98f;
+        moveSpeed = moveSpeed * drag;
+        dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
     }
 
     private void RotTheDragon()
@@ -54,14 +86,21 @@ public class TestDragonMove : MonoBehaviour
 
         if (testGrab.isGrabed_L == true)
         {
-            dragon.transform.rotation = Quaternion.Lerp(transform.rotation, lr, rotSpeed * Time.deltaTime);
+            //dragon.transform.rotation = Quaternion.Lerp(transform.localRotation, lr, rotSpeed * Time.deltaTime);
+            dragon.transform.rotation = leftHand.localRotation;
             //GoForward();
         }
     }
 
-    private void CheckLocalRot()
+    private float Anglefunction(Vector3 v1, Vector3 v2)
     {
-        lr = leftCtrlAnchor.transform.localRotation;
+        float x = Mathf.Acos(Vector3.Dot(v1, v2))/* * Mathf.Rad2Deg*/;
+        return x;
     }
+
+    //private void CheckLocalRot()
+    //{
+    //    lr = leftCtrlAnchor.transform.localRotation;
+    //}
 
 }
