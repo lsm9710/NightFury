@@ -15,9 +15,13 @@ public class TestDragonMove : MonoBehaviour
     //드래곤
     //드래곤을 저장할 변수
     public GameObject dragon;
+    //드래곤의 Rigidbody를 저장할 변수
+    Rigidbody rbDragon;
 
     //회전속도
     public float rotSpeed = 5f;
+    //전진속도
+    public float moveSpeed = 10f;
 
     //고삐를 쥐고 있는지 알아야한다
     TestGrab testGrab;
@@ -29,22 +33,29 @@ public class TestDragonMove : MonoBehaviour
     void Start()
     {
         testGrab = GetComponent<TestGrab>();
+        rbDragon = dragon.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckLocalRot();
+        RotTheDragon();
+    }
 
-        //Quaternion dir = new Quaternion(Mathf.FloorToInt(leftCtrlAnchor.transform.rotation.x)
-        //    , Mathf.FloorToInt(leftCtrlAnchor.transform.rotation.y)
-        //    , Mathf.FloorToInt(leftCtrlAnchor.transform.rotation.z),0);
+    private void GoForward()
+    {
+        rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
+    }
+
+    private void RotTheDragon()
+    {
         //만약 testGrab에 isGrabed가 true 라면 다음 행동을 취하겠다.
+
         if (testGrab.isGrabed_L == true)
         {
             dragon.transform.rotation = Quaternion.Lerp(transform.rotation, lr, rotSpeed * Time.deltaTime);
-            
-            //dragon.transform.rotation = Quaternion.Lerp(transform.rotation, dir ,rotSpeed * Time.deltaTime);
+            //GoForward();
         }
     }
 
@@ -52,4 +63,5 @@ public class TestDragonMove : MonoBehaviour
     {
         lr = leftCtrlAnchor.transform.localRotation;
     }
+
 }
