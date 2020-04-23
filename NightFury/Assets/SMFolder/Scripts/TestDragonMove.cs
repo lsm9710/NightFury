@@ -19,7 +19,7 @@ public class TestDragonMove : MonoBehaviour
     Rigidbody rbDragon;
 
     //회전속도
-    public float rotSpeed = 5f;
+    public float rotSpeed = 0.05f;
     //전진속도
     public float moveSpeed = 10f;
     //감소속도? 마찰력?
@@ -71,7 +71,6 @@ public class TestDragonMove : MonoBehaviour
         //}
     }
 
-
     public void SlowDown()
     {
 
@@ -80,27 +79,57 @@ public class TestDragonMove : MonoBehaviour
         dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
     }
 
+    //public float offset = 0.05f;
+    Vector3 angle;
+    //상한궤도
+    public float orbit = 20f;
     private void RotTheDragon()
     {
+        
         //만약 testGrab에 isGrabed가 true 라면 다음 행동을 취하겠다.
 
         if (testGrab.isGrabed_L == true)
         {
-            //dragon.transform.rotation = Quaternion.Lerp(transform.localRotation, lr, rotSpeed * Time.deltaTime);
-            dragon.transform.rotation = leftHand.localRotation;
-            //GoForward();
+            angle = leftHand.localEulerAngles;
+
+            if (180 < angle.x && angle.x <= 360) angle.x -= 360;
+            if (180 < angle.y && angle.y <= 360) angle.y -= 360;
+            if (180 < angle.z && angle.z <= 360) angle.z -= 360;
+
+            if (Mathf.Abs(angle.x) < orbit) angle.x = 0f;
+            if (Mathf.Abs(angle.y) < orbit) angle.y = 0f;
+            if (Mathf.Abs(angle.z) < orbit) angle.z = 0f;
+
+            dragon.transform.Rotate(transform.right, angle.x * rotSpeed, Space.World);
+            dragon.transform.Rotate(transform.up, angle.y * rotSpeed, Space.World);
+            dragon.transform.Rotate(transform.forward, angle.z * rotSpeed, Space.World);
         }
+        //dragon.transform.rotation = Quaternion.Lerp(transform.localRotation, lr, rotSpeed * Time.deltaTime);
+        //  dragon.transform.rotation = leftHand.localRotation;
+
+        //float x= Anglefunction(Vector3.forward, transform.forward);
+        //x *= offset;
+        //rotSpeed += x;
+
+        //dragon.transform.rotation = Quaternion.Euler(rotSpeed, 0, 0);
+
+        //print("Angle:" + angle);
+        //GoForward();
+    }
     }
 
-    private float Anglefunction(Vector3 v1, Vector3 v2)
-    {
-        float x = Mathf.Acos(Vector3.Dot(v1, v2))/* * Mathf.Rad2Deg*/;
-        return x;
-    }
+    //private void Anglefunction()
+    //{
+        //float x = Mathf.Acos(Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
+        //x = Mathf.Clamp(x, 30, 80);
+
+        //print(x + "!!!!!!!!!!!!");
+        //return x;
+       
 
     //private void CheckLocalRot()
     //{
     //    lr = leftCtrlAnchor.transform.localRotation;
     //}
 
-}
+//}

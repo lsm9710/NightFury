@@ -91,7 +91,7 @@ public class TestGrab : MonoBehaviour
             grabObj_L.GetComponent<Rigidbody>().velocity = _velocity;
             grabObj_L.GetComponent<Rigidbody>().isKinematic = false;
 
-            state = MoveState.SlowDown;
+            //state = MoveState.SlowDown;
 
             isGrabed_L = false;
             isTouched_L = true;
@@ -115,7 +115,7 @@ public class TestGrab : MonoBehaviour
         //왼손으로 물체를 잡을때
         if (isTouched_L && OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
         {
-            state = MoveState.Flight;
+            //state = MoveState.Flight;
             grabObj_L.SetParent(trL);
             grabObj_L.GetComponent<Rigidbody>().isKinematic = true;
             isGrabed_L = true;

@@ -427,5 +427,10 @@ PrefabInstance:
       propertyPath: leftHand
       value: 
       objectReference: {fileID: 1383370460}
+    - target: {fileID: 5327025444115237985, guid: 50274fe4402772242ae8bee267cf5ff1,
+        type: 3}
+      propertyPath: rotSpeed
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50274fe4402772242ae8bee267cf5ff1, type: 3}
