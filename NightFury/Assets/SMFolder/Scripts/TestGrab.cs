@@ -87,11 +87,9 @@ public class TestGrab : MonoBehaviour
         if (isGrabed_L && OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger))
         {
             grabObj_L.SetParent(null);
-            Vector3 _velocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
-            grabObj_L.GetComponent<Rigidbody>().velocity = _velocity;
+            //Vector3 _velocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
+            //grabObj_L.GetComponent<Rigidbody>().velocity = _velocity;
             grabObj_L.GetComponent<Rigidbody>().isKinematic = false;
-
-            //state = MoveState.SlowDown;
 
             isGrabed_L = false;
             isTouched_L = true;
@@ -115,10 +113,25 @@ public class TestGrab : MonoBehaviour
         //왼손으로 물체를 잡을때
         if (isTouched_L && OVRInput.Get(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.LTouch))
         {
-            //state = MoveState.Flight;
             grabObj_L.SetParent(trL);
             grabObj_L.GetComponent<Rigidbody>().isKinematic = true;
             isGrabed_L = true;
+            PullThrottleOrNot();
+        }
+    }
+
+    //스로틀을 당기고 있는지 여부를 체크하는 함수
+    public void PullThrottleOrNot()
+    {
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+        {
+            print("뭐야????");
+            state = MoveState.Flight;
+        }
+        else if (!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+        {
+            print("너는????");
+            state = MoveState.SlowDown;
         }
     }
 

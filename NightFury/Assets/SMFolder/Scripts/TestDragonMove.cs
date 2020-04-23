@@ -48,7 +48,10 @@ public class TestDragonMove : MonoBehaviour
 
     public void GoForward()
     {
-        Acceleration();
+        if (moveSpeed <= 80f)
+        {
+            Acceleration();
+        }
         
         drag = 1.0f;
         //rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
@@ -61,21 +64,23 @@ public class TestDragonMove : MonoBehaviour
     public float stack1;
     public float stack2;
     public float stack3;
+
+    Vector3 velocity;
     private void Acceleration()
     {
-        //currentTime += Time.deltaTime;
         moveSpeed += 2.5f;
-        //if (moveSpeed >= 30f)
-        //{
-
-        //}
+        velocity = dragon.transform.forward * moveSpeed * Time.deltaTime;
+        if (moveSpeed >= 80f)
+        {
+            moveSpeed = 80f;
+        }
     }
 
     public void SlowDown()
     {
 
         drag = 0.98f;
-        moveSpeed = moveSpeed * drag;
+        moveSpeed *= drag;
         dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
     }
 
