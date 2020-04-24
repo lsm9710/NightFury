@@ -10,7 +10,8 @@ public class TestGrab : MonoBehaviour
     {
         Idle,
         Flight,
-        SlowDown
+        SlowDown,
+        FlameThrow
     }
     public MoveState state;
 
@@ -27,11 +28,14 @@ public class TestGrab : MonoBehaviour
     public bool isGrabed_L = false;
     public bool isGrabed_R = false;
 
+    Animator anim;
+
     public GameObject camPos;
     TestDragonMove tdm;
 
     private void Start()
     {
+        anim = GetComponentInParent<Animator>();
         tdm = GetComponent<TestDragonMove>();
     }
 
@@ -62,8 +66,12 @@ public class TestGrab : MonoBehaviour
             case MoveState.SlowDown:
                 tdm.SlowDown();
                 break;
+            case MoveState.FlameThrow:
+                anim.SetTrigger("FlameThrow");
+                break;
         }
     }
+
 
     //private void DropedOBJRTouch()
     //{
@@ -117,6 +125,7 @@ public class TestGrab : MonoBehaviour
             grabObj_L.GetComponent<Rigidbody>().isKinematic = true;
             isGrabed_L = true;
             PullThrottleOrNot();
+            FlameThrow();
         }
     }
 
@@ -125,15 +134,27 @@ public class TestGrab : MonoBehaviour
     {
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
-            print("뭐야????");
             state = MoveState.Flight;
         }
         else if (!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
-            print("너는????");
             state = MoveState.SlowDown;
         }
     }
+
+    
+    private void FlameThrow()
+    {
+        //X와 Y를 동시에 누르면 화염방사를 실행하고싶다.
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
+            && OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        {
+            //공격애니메이션을 실행시킨다.
+            state = MoveState.FlameThrow;
+        }
+    }
+
+    //화염방사 이펙트는 애니메이션에서 끄고 켜겠다.
 
     void OnTriggerEnter(Collider coll)
     {
