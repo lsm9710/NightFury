@@ -28,6 +28,22 @@ public class TestGrab : MonoBehaviour
     public bool isGrabed_L = false;
     public bool isGrabed_R = false;
 
+    //레이를 발사할 오리진 포스
+    public Transform dragonMouth;
+    //레이를 발사할 거리
+    public float rayDist = 5.5f;
+    //물체를 감지할 범위
+    public float catchRange = 5f;
+
+    //파이어볼 공장
+    public GameObject firBallFactory;
+    //발사할 위치는 레이를 발사하는 곳에서 시작한다.
+    [HideInInspector]
+    public List<GameObject> fireBallListPool = new List<GameObject>();
+
+    //탄창은 몇발로 할건데?
+    int amount = 10;
+
     Animator anim;
 
     public GameObject camPos;
@@ -37,6 +53,16 @@ public class TestGrab : MonoBehaviour
     {
         anim = GetComponentInParent<Animator>();
         tdm = GetComponent<TestDragonMove>();
+
+        //리스트로 탄창을 만들어 보자
+        for (int i = 0; i < amount; i++)
+        {
+            //만들어서 넣고
+            GameObject bullet = Instantiate(firBallFactory);
+            fireBallListPool.Add(bullet);
+            //비활성화 시킨다
+            bullet.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -68,7 +94,20 @@ public class TestGrab : MonoBehaviour
                 break;
             case MoveState.FlameThrow:
                 anim.SetTrigger("FlameThrow");
+                ShootTheRay();
                 break;
+        }
+    }
+
+    //모든걸 태워버릴 레이 발사
+    private void ShootTheRay()
+    {
+        int layer = 1 << LayerMask.NameToLayer("Enmy");
+
+        Collider[] hit = Physics.OverlapSphere(dragonMouth.position, catchRange, layer);
+        if (hit.Length > 0)
+        {
+            //충돌한 물체의 이름을 적어보자
         }
     }
 
@@ -125,7 +164,31 @@ public class TestGrab : MonoBehaviour
             grabObj_L.GetComponent<Rigidbody>().isKinematic = true;
             isGrabed_L = true;
             PullThrottleOrNot();
+            FireBall();
             FlameThrow();
+        }
+    }
+
+    //파이어볼을 쏠거야
+    private void FireBall()
+    {
+        //X버튼을 누를때 파이어볼을 쏠거야
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
+        {
+            //만약 탄창에 총알이 있다면
+            if (fireBallListPool.Count > 0)
+            {
+                //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
+                GameObject bullet = fireBallListPool[0];
+
+                //제 위치에 가져다놓고
+                bullet.transform.position = dragonMouth.transform.position;
+                bullet.transform.up = dragonMouth.transform.up;
+                //활성화 시키고
+                bullet.SetActive(true);
+                //탄창에서 제거하자
+                fireBallListPool.Remove(bullet);
+            }
         }
     }
 
@@ -145,14 +208,15 @@ public class TestGrab : MonoBehaviour
     
     private void FlameThrow()
     {
-        //X와 Y를 동시에 누르면 화염방사를 실행하고싶다.
-        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
-            && OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+        //Y를 누르면 화염방사를 실행하고싶다.
+        if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
+            && */OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
         {
             //공격애니메이션을 실행시킨다.
             state = MoveState.FlameThrow;
         }
     }
+
 
     //화염방사 이펙트는 애니메이션에서 끄고 켜겠다.
 
@@ -168,5 +232,14 @@ public class TestGrab : MonoBehaviour
         //    grabObj_R = coll.transform;
         //    isTouched_R = true;
         //}
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(dragonMouth.position, dragonMouth.position + dragonMouth.forward * rayDist);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(dragonMouth.position, catchRange);
     }
 }

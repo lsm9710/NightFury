@@ -1769,14 +1769,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515897914059337556}
-  m_LocalRotation: {x: 0.073095635, y: -0.70331866, z: 0.07309571, w: 0.7033186}
+  m_LocalRotation: {x: -0.045680735, y: -0.70562977, z: -0.04568072, w: 0.70562965}
   m_LocalPosition: {x: -39.05581, y: 5.684342e-14, z: 6.1062474e-15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8071299879032361812}
+  - {fileID: 4303836444247015895}
   m_Father: {fileID: 2515897914059039182}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 11.867001, y: -90.00001, z: 0}
+  m_LocalEulerAnglesHint: {x: -7.4080005, y: -90.00001, z: 0}
 --- !u!1 &2515897914059337894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3140,6 +3141,36 @@ Transform:
   m_Father: {fileID: 2515897914059123154}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4952194585072890071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4303836444247015895}
+  m_Layer: 0
+  m_Name: RayOriginPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4303836444247015895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4952194585072890071}
+  m_LocalRotation: {x: 0.026623115, y: 0.000000059604638, z: 0.000000026077029, w: -0.9996456}
+  m_LocalPosition: {x: -0.000048103368, y: 0.0000297205, z: 0.00018085915}
+  m_LocalScale: {x: 100.0001, y: 100, z: 100.0001}
+  m_Children: []
+  m_Father: {fileID: 2515897914059075974}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &4069468859113064072
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3248,6 +3279,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlameThrowerEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 8932176376828226905, guid: f1cd5581ac7905f439b45102c514394b,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8738158775656926855, guid: f1cd5581ac7905f439b45102c514394b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3318,26 +3369,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 100.00003
       objectReference: {fileID: 0}
-    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8738158780898307251, guid: f1cd5581ac7905f439b45102c514394b,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8932176376828226905, guid: f1cd5581ac7905f439b45102c514394b,
-        type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8932176376763457121, guid: f1cd5581ac7905f439b45102c514394b,
         type: 3}
       propertyPath: playOnAwake
@@ -3356,15 +3387,15 @@ ParticleSystem:
     type: 3}
   m_PrefabInstance: {fileID: 668548587224751571}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &8074597912263032800 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8739680794795221555, guid: f1cd5581ac7905f439b45102c514394b,
-    type: 3}
-  m_PrefabInstance: {fileID: 668548587224751571}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8071299879032361812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8738158775656926855, guid: f1cd5581ac7905f439b45102c514394b,
+    type: 3}
+  m_PrefabInstance: {fileID: 668548587224751571}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8074597912263032800 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8739680794795221555, guid: f1cd5581ac7905f439b45102c514394b,
     type: 3}
   m_PrefabInstance: {fileID: 668548587224751571}
   m_PrefabAsset: {fileID: 0}
@@ -3460,6 +3491,21 @@ PrefabInstance:
       propertyPath: grabObj_L
       value: 
       objectReference: {fileID: 674918702}
+    - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: dragonMouth
+      value: 
+      objectReference: {fileID: 4303836444247015895}
+    - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: catchRange
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: camPos
+      value: 
+      objectReference: {fileID: 3781616840415587051}
     - target: {fileID: 2312192990915945200, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: dragon
@@ -3490,6 +3536,16 @@ PrefabInstance:
       propertyPath: grabObj_L
       value: 
       objectReference: {fileID: 674918702}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: dragonMouth
+      value: 
+      objectReference: {fileID: 4303836444247015895}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: catchRange
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: camPos
