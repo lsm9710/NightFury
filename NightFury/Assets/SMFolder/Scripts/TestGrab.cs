@@ -54,11 +54,12 @@ public class TestGrab : MonoBehaviour
         anim = GetComponentInParent<Animator>();
         tdm = GetComponent<TestDragonMove>();
 
+
         //리스트로 탄창을 만들어 보자
         for (int i = 0; i < amount; i++)
         {
             //만들어서 넣고
-            GameObject bullet = Instantiate(firBallFactory);
+            bullet = Instantiate(firBallFactory);
             fireBallListPool.Add(bullet);
             //비활성화 시킨다
             bullet.SetActive(false);
@@ -169,6 +170,7 @@ public class TestGrab : MonoBehaviour
         }
     }
 
+    GameObject bullet;
     //파이어볼을 쏠거야
     private void FireBall()
     {
@@ -179,16 +181,32 @@ public class TestGrab : MonoBehaviour
             if (fireBallListPool.Count > 0)
             {
                 //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
-                GameObject bullet = fireBallListPool[0];
+                bullet = fireBallListPool[0];
 
                 //제 위치에 가져다놓고
                 bullet.transform.position = dragonMouth.transform.position;
-                bullet.transform.up = dragonMouth.transform.up;
+                bullet.transform.forward = dragonMouth.transform.forward;
+                //파이어볼의 최대 사거리만큼 레이를 발사해
+                //레이사이에 검출되는녀석을 Target으로 만든다.
+                DetectRayCast();
+
                 //활성화 시키고
                 bullet.SetActive(true);
                 //탄창에서 제거하자
                 fireBallListPool.Remove(bullet);
             }
+        }
+    }
+
+    public EffectSettings effectSettings;
+    private void DetectRayCast()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(dragonMouth.transform.position, dragonMouth.transform.forward,out hit) && hit.collider.tag != "Wall")
+        {
+            effectSettings = bullet.GetComponentInChildren<EffectSettings>();
+
+            effectSettings.Target = hit.collider.gameObject;
         }
     }
 
