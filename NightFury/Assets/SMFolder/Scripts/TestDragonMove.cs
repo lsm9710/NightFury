@@ -61,7 +61,7 @@ public class TestDragonMove : MonoBehaviour
         //rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
         moveSpeed *= drag;
         dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
-
+        print(moveSpeed);
     }
 
     public float acceleration = 2.5f;
