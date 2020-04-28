@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class TestDragonMove : MonoBehaviour
@@ -81,7 +82,7 @@ public class TestDragonMove : MonoBehaviour
     public float orbit = 20f;
     private void RotTheDragon()
     {
-        
+
         //만약 testGrab에 isGrabed가 true 라면 다음 행동을 취하겠다.
 
         if (testGrab.isGrabed_L == true)
@@ -99,33 +100,31 @@ public class TestDragonMove : MonoBehaviour
             dragon.transform.Rotate(transform.right, angle.x * rotSpeed, Space.World);
             dragon.transform.Rotate(transform.up, angle.y * rotSpeed, Space.World);
             dragon.transform.Rotate(transform.forward, angle.z * rotSpeed, Space.World);
+            FieldOfView();
         }
-        //dragon.transform.rotation = Quaternion.Lerp(transform.localRotation, lr, rotSpeed * Time.deltaTime);
-        //  dragon.transform.rotation = leftHand.localRotation;
-
-        //float x= Anglefunction(Vector3.forward, transform.forward);
-        //x *= offset;
-        //rotSpeed += x;
-
-        //dragon.transform.rotation = Quaternion.Euler(rotSpeed, 0, 0);
-
-        //print("Angle:" + angle);
-        //GoForward();
     }
+    Color color;
+    //화면을 가릴 이미지들
+    public Image[] blackImages;
+    private void FieldOfView()
+    {
+        if (angle.x > orbit || angle.y > orbit || angle.z > orbit)
+        {
+            for (int i = 0; i < blackImages.Length; i++)
+            {
+                color = blackImages[i].color;
+                color.a = 1;
+                blackImages[i].color = color;
+            }
+        }
+        else
+        {
+            for (int y = 0; y < blackImages.Length; y++)
+            {
+                color = blackImages[y].color;
+                color.a = 0;
+                blackImages[y].color = color;
+            }
+        }
     }
-
-    //private void Anglefunction()
-    //{
-        //float x = Mathf.Acos(Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
-        //x = Mathf.Clamp(x, 30, 80);
-
-        //print(x + "!!!!!!!!!!!!");
-        //return x;
-       
-
-    //private void CheckLocalRot()
-    //{
-    //    lr = leftCtrlAnchor.transform.localRotation;
-    //}
-
-//}
+}
