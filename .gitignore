@@ -11,3 +11,5 @@ NightFury/NightFury.sln
 NightFury/Oculus.VR.csproj
 NightFury/Oculus.VR.Editor.csproj
 NightFury/Oculus.VR.Scripts.Editor.csproj
+NightFury/Assembly-CSharp-Editor-firstpass.csproj
+NightFury/Assembly-CSharp-firstpass.csproj
