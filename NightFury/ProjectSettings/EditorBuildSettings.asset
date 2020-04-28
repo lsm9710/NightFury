@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/MergeScenes/TitleScene.unity
+    guid: aa95c71081fd3c54aadd6ea5e9ee2ed6
+  - enabled: 1
+    path: Assets/MergeScenes/NightFury_v01.unity
+    guid: e22bd8ab6e07bda43a0ae21fc6520063
   m_configObjects: {}

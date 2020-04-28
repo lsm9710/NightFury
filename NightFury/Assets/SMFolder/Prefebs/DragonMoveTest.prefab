@@ -3406,11 +3406,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4906507821699216260}
     m_Modifications:
-    - target: {fileID: 5660474657055937435, guid: 52a56986a8b73e4479739fa58180e110,
-        type: 3}
-      propertyPath: m_Name
-      value: ControllerGrabTestPlayer
-      objectReference: {fileID: 0}
     - target: {fileID: 4116433009616440991, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3466,6 +3461,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5660474657055937435, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: m_Name
+      value: ControllerGrabTestPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 3081223667176870474, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -3498,9 +3498,20 @@ PrefabInstance:
       objectReference: {fileID: 4303836444247015895}
     - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
-      propertyPath: catchRange
-      value: 6
+      propertyPath: rayDist
+      value: 55
       objectReference: {fileID: 0}
+    - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: catchRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: firBallFactory
+      value: 
+      objectReference: {fileID: 917038388410224698, guid: 9d72d190a68c07a4cbd1fef85a9170e3,
+        type: 3}
     - target: {fileID: 6927310877409304094, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: camPos
@@ -3543,9 +3554,20 @@ PrefabInstance:
       objectReference: {fileID: 4303836444247015895}
     - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
-      propertyPath: catchRange
-      value: 6
+      propertyPath: rayDist
+      value: 55
       objectReference: {fileID: 0}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: catchRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: firBallFactory
+      value: 
+      objectReference: {fileID: 917038388410224698, guid: 9d72d190a68c07a4cbd1fef85a9170e3,
+        type: 3}
     - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: camPos
