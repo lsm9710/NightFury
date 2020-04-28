@@ -5,6 +5,7 @@ using UnityEngine;
 // 카메라에서 Ray를 발사해서 부딪힌 자리에 Crosshair 이미지를 배치하고 싶다
 public class Crosshair : MonoBehaviour
 {
+    // 안녕하세요
     public float customScale = 1;
 
     Transform mainCamTr;
