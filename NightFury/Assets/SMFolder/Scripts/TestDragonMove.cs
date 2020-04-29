@@ -38,6 +38,10 @@ public class TestDragonMove : MonoBehaviour
     {
         testGrab = GetComponent<TestGrab>();
         rbDragon = dragon.GetComponent<Rigidbody>();
+        bool b = false;
+
+        //int result = b ? 1 : 2;
+        //result = 0;
     }
 
     // Update is called once per frame
@@ -62,7 +66,6 @@ public class TestDragonMove : MonoBehaviour
         //rbDragon.AddForce(new Vector3(0, 0, 1), ForceMode.Impulse);
         moveSpeed *= drag;
         dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
-        print(moveSpeed);
     }
 
     public float acceleration = 2.5f;

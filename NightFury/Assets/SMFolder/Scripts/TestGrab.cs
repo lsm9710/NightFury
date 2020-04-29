@@ -38,7 +38,7 @@ public class TestGrab : MonoBehaviour
     //파이어볼 공장
     public GameObject firBallFactory;
     //발사할 위치는 레이를 발사하는 곳에서 시작한다.
-    [HideInInspector]
+    
     public List<GameObject> fireBallListPool = new List<GameObject>();
 
     //탄창은 몇발로 할건데?
@@ -60,6 +60,8 @@ public class TestGrab : MonoBehaviour
         {
             //만들어서 넣고
             bullet = Instantiate(firBallFactory);
+            //파이어볼을 쏠 포지션을 갖기위해 부모가 필요하다
+            bullet.transform.SetParent(dragonMouth);
             fireBallListPool.Add(bullet);
             //비활성화 시킨다
             bullet.SetActive(false);
@@ -199,6 +201,8 @@ public class TestGrab : MonoBehaviour
 
                 //활성화 시키고
                 bullet.SetActive(true);
+                //부모한테서 떼 내줘야한다.
+
                 //탄창에서 제거하자
                 fireBallListPool.Remove(bullet);
             }
@@ -209,7 +213,7 @@ public class TestGrab : MonoBehaviour
     private void DetectRayCast()
     {
         RaycastHit hit;
-        if (Physics.Raycast(dragonMouth.transform.position, dragonMouth.transform.forward, out hit) && hit.collider.tag != "Wall")
+        if (Physics.Raycast(dragonMouth.transform.position, dragonMouth.transform.forward, out hit))
         {
             effectSettings = bullet.GetComponentInChildren<EffectSettings>();
 
