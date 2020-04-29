@@ -202,7 +202,7 @@ public class TestGrab : MonoBehaviour
                 //활성화 시키고
                 bullet.SetActive(true);
                 //부모한테서 떼 내줘야한다.
-
+                bullet.transform.parent = null;
                 //탄창에서 제거하자
                 fireBallListPool.Remove(bullet);
             }
