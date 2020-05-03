@@ -485,7 +485,7 @@ MonoBehaviour:
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2515897914059129134
@@ -4793,6 +4793,16 @@ PrefabInstance:
       propertyPath: camPos
       value: 
       objectReference: {fileID: 3781616840415587051}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: pressX
+      value: 
+      objectReference: {fileID: 737991856547879923}
+    - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
+        type: 3}
+      propertyPath: pressY
+      value: 
+      objectReference: {fileID: 9029648159441283485}
     - target: {fileID: 3761485421918705082, guid: 52a56986a8b73e4479739fa58180e110,
         type: 3}
       propertyPath: fireballPos

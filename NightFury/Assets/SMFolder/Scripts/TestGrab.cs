@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestGrab : MonoBehaviour
 {
@@ -50,6 +51,10 @@ public class TestGrab : MonoBehaviour
 
     public GameObject camPos;
     TestDragonMove tdm;
+
+    //왼손UI에서 찾아와 사용할 변수
+    public Image pressX;
+    public Image pressY;
 
     private void Start()
     {
@@ -123,7 +128,7 @@ public class TestGrab : MonoBehaviour
         }
     }
 
-
+    #region
     //private void DropedOBJRTouch()
     //{
     //    //오른손으로 물체를 놓을때
@@ -139,6 +144,7 @@ public class TestGrab : MonoBehaviour
     //        grabObj_R.parent = camPos.transform;
     //    }
     //}
+    #endregion
 
     private void DropedOBJLTouch()
     {
@@ -155,7 +161,7 @@ public class TestGrab : MonoBehaviour
             grabObj_L.parent = camPos.transform;
         }
     }
-
+    #region
     //private void GrabedOBJRTouch()
     //{
     //    //오른손으로 물체를 잡을때
@@ -166,6 +172,13 @@ public class TestGrab : MonoBehaviour
     //        isGrabed_R = true;
     //    }
     //}
+    #endregion
+
+    //버튼을 누를 수 있는 쿨타임
+    public float cool = 1f;
+    //fill이 차오르는 시간
+    public float leftTime = 1f;
+
 
     private void GrabedOBJLTouch()
     {
@@ -190,6 +203,17 @@ public class TestGrab : MonoBehaviour
         //X버튼을 누를때 파이어볼을 쏠거야
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
         {
+            if (leftTime > 0)
+            {
+                leftTime -= Time.deltaTime;
+                if (leftTime < 0)
+                {
+                    leftTime = 0;
+                    float ratio = 1.0f - (leftTime / cool);
+                    pressX.fillAmount = ratio;
+                }
+            }
+
             //만약 탄창에 총알이 있다면
             if (fireBallListPool.Count > 0)
             {
@@ -215,7 +239,7 @@ public class TestGrab : MonoBehaviour
             }
         }
     }
-
+    #region
     //public EffectSettings effectSettings;
     //private void DetectRayCast()
     //{
@@ -227,7 +251,7 @@ public class TestGrab : MonoBehaviour
     //        effectSettings.Target = hit.collider.gameObject;
     //    }
     //}
-
+    #endregion
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {
@@ -253,10 +277,8 @@ public class TestGrab : MonoBehaviour
             audio.clip = flamethrow;
             audio.Play();
         }
+        //화염방사 이펙트는 애니메이션에서 끄고 켜겠다.
     }
-
-
-    //화염방사 이펙트는 애니메이션에서 끄고 켜겠다.
 
     void OnTriggerEnter(Collider coll)
     {
