@@ -45,6 +45,8 @@ public class TestGrab : MonoBehaviour
     int amount = 10;
 
     Animator anim;
+    AudioSource audio;
+    public AudioClip flamethrow, fireball, dragonattack;
 
     public GameObject camPos;
     TestDragonMove tdm;
@@ -53,15 +55,15 @@ public class TestGrab : MonoBehaviour
     {
         anim = GetComponentInParent<Animator>();
         tdm = GetComponent<TestDragonMove>();
-
+        audio = fireballPos.GetComponent<AudioSource>();
 
         //리스트로 탄창을 만들어 보자
         for (int i = 0; i < amount; i++)
         {
             //만들어서 넣고
             bullet = Instantiate(firBallFactory);
-            //파이어볼을 쏠 포지션을 갖기위해 부모가 필요하다
-            bullet.transform.SetParent(dragonMouth);
+            ////파이어볼을 쏠 포지션을 갖기위해 부모가 필요하다
+            //bullet.transform.SetParent(dragonMouth);
             fireBallListPool.Add(bullet);
             //비활성화 시킨다
             bullet.SetActive(false);
@@ -180,6 +182,8 @@ public class TestGrab : MonoBehaviour
     }
 
     GameObject bullet;
+    //파이어 볼을 쏠 위치
+    public GameObject fireballPos;
     //파이어볼을 쏠거야
     private void FireBall()
     {
@@ -193,33 +197,36 @@ public class TestGrab : MonoBehaviour
                 bullet = fireBallListPool[0];
 
                 //제 위치에 가져다놓고
-                bullet.transform.position = dragonMouth.transform.position;
-                bullet.transform.forward = dragonMouth.transform.forward;
+                bullet.transform.position = fireballPos.transform.position;
+                bullet.transform.forward = fireballPos.transform.forward;
                 //파이어볼의 최대 사거리만큼 레이를 발사해
                 //레이사이에 검출되는녀석을 Target으로 만든다.
-                DetectRayCast();
+                //DetectRayCast();
 
                 //활성화 시키고
                 bullet.SetActive(true);
+                //오디오를 재생시키자
+                audio.clip = fireball;
+                audio.Play();
                 //부모한테서 떼 내줘야한다.
-                bullet.transform.parent = null;
+                //bullet.transform.parent = null;
                 //탄창에서 제거하자
                 fireBallListPool.Remove(bullet);
             }
         }
     }
 
-    public EffectSettings effectSettings;
-    private void DetectRayCast()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(dragonMouth.transform.position, dragonMouth.transform.forward, out hit))
-        {
-            effectSettings = bullet.GetComponentInChildren<EffectSettings>();
+    //public EffectSettings effectSettings;
+    //private void DetectRayCast()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(dragonMouth.transform.position, dragonMouth.transform.forward, out hit))
+    //    {
+    //        effectSettings = bullet.GetComponentInChildren<EffectSettings>();
 
-            effectSettings.Target = hit.collider.gameObject;
-        }
-    }
+    //        effectSettings.Target = hit.collider.gameObject;
+    //    }
+    //}
 
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
@@ -243,6 +250,8 @@ public class TestGrab : MonoBehaviour
         {
             //공격애니메이션을 실행시킨다.
             state = MoveState.FlameThrow;
+            audio.clip = flamethrow;
+            audio.Play();
         }
     }
 
