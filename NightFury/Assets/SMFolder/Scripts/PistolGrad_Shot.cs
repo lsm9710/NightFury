@@ -94,6 +94,8 @@ public class PistolGrad_Shot : MonoBehaviour
     bool canUsePistol = true;
     //총구
     public Transform firPos;
+    //총구화염
+    public ParticleSystem muzzle;
     //사용자 입력으로 총을 발사하는 매소드
     private void PistolGunShot()
     {
@@ -102,6 +104,7 @@ public class PistolGrad_Shot : MonoBehaviour
         {
             pressA.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(PistolCoolTime());
+            muzzle.Play();
             anim.SetTrigger("Shoot");   //반동애니메이션
             audio.Play();
             //만약 탄창에 총알이 있다면
