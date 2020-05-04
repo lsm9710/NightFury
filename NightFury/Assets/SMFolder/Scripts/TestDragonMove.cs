@@ -7,6 +7,14 @@ using UnityEngine.UI;
 
 public class TestDragonMove : MonoBehaviour
 {
+    //pc환경일때만 사용한다
+#if UNITY_PC
+    public float rotSpeed = 200;
+
+    float mx;
+    float my;
+#endif
+
     //사용자 앵커의 회전값에 따라 회전시키고 싶다.
 
     //왼손의 앵커를 저장할 변수
@@ -49,7 +57,36 @@ public class TestDragonMove : MonoBehaviour
     {
         //CheckLocalRot();
         RotTheDragon();
+#if UNITY_PC
+        float h = GetAxisVec2XY().x;
+        float v = GetAxisVec2XY().y;
+
+        //회전방향
+        RotateOBJ(h,v,ref mx, ref my);
+
+        //고개돌리는 반경에 제약을 두고싶다
+        my = Mathf.Clamp(my, -90, 90);
+
+        transform.eulerAngles = new Vector2(-my, mx);
+#endif
     }
+
+#if UNITY_PC
+    Vector2 GetAxisVec2XY()
+    {
+        Vector2 v = new Vector2(0, 0);
+        //1. 사용자 입력에 따라
+        v.x = Input.GetAxis("Mouse X");
+        v.y = Input.GetAxis("Mouse Y");
+
+        return v;
+    }
+     void RotateOBJ(float h, float v, ref float mx, ref float my)
+    {
+        mx += h * rotSpeed * Time.deltaTime;
+        my += v * rotSpeed * Time.deltaTime;
+    }
+#endif
 
     public void GoForward()
     {

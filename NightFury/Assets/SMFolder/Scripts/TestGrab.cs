@@ -214,6 +214,40 @@ public class TestGrab : MonoBehaviour
     bool canUsefireball = true;
     private void FireBall()
     {
+        #region --------- | PC테스트 구문 | ---------
+#if UNITY_PC
+        if (Input.GetButtonDown("Fire1") && canUsefireball)
+        {
+            Debug.Log("~~~~~~~~~~");
+            pressX.fillAmount = 1f;     //스킬버튼을 가림
+            StartCoroutine(FireBallCoolTime());
+            //만약 탄창에 총알이 있다면
+            if (fireBallListPool.Count > 0)
+            {
+                //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
+                bullet = fireBallListPool[0];
+
+                //제 위치에 가져다놓고
+                bullet.transform.position = fireballPos.transform.position;
+                bullet.transform.forward = fireballPos.transform.forward;
+                //파이어볼의 최대 사거리만큼 레이를 발사해
+                //레이사이에 검출되는녀석을 Target으로 만든다.
+                //DetectRayCast();
+
+                //활성화 시키고
+                bullet.SetActive(true);
+                //오디오를 재생시키자
+                audio.clip = fireball;
+                audio.Play();
+                //부모한테서 떼 내줘야한다.
+                //bullet.transform.parent = null;
+                //탄창에서 제거하자
+                fireBallListPool.Remove(bullet);
+            }
+            canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
+        }
+#endif
+        #endregion 
         //X버튼을 누를때 파이어볼을 쏠거야
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch) && canUsefireball)
         {
@@ -260,7 +294,7 @@ public class TestGrab : MonoBehaviour
         canUsefireball = true;
         yield break;
     }
-    #region
+#region
     //public EffectSettings effectSettings;
     //private void DetectRayCast()
     //{
@@ -272,10 +306,22 @@ public class TestGrab : MonoBehaviour
     //        effectSettings.Target = hit.collider.gameObject;
     //    }
     //}
-    #endregion
+#endregion
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {
+        #region
+#if UNITY_PC
+        if (Input.GetKey("Jump"))
+        {
+            state = MoveState.Flight;
+        }
+        else if (!Input.GetKey("Jump"))
+        {
+            state = MoveState.SlowDown;
+        }
+#endif
+        #endregion
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             state = MoveState.Flight;
@@ -289,6 +335,17 @@ public class TestGrab : MonoBehaviour
 
     private void FlameThrow()
     {
+        #region
+#if UNITY_PC
+        if (Input.GetKeyDown("Fire2"))
+        {
+            //공격애니메이션을 실행시킨다.
+            state = MoveState.FlameThrow;
+            audio.clip = flamethrow;
+            audio.Play();
+        }
+#endif
+        #endregion
         //Y를 누르면 화염방사를 실행하고싶다.
         if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
             && */OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
