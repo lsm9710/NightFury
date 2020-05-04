@@ -310,7 +310,6 @@ public class TestGrab : MonoBehaviour
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {
-        #region
 #if UNITY_PC
         if (Input.GetKey("Jump"))
         {
@@ -321,7 +320,7 @@ public class TestGrab : MonoBehaviour
             state = MoveState.SlowDown;
         }
 #endif
-        #endregion
+
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             state = MoveState.Flight;
@@ -335,7 +334,7 @@ public class TestGrab : MonoBehaviour
 
     private void FlameThrow()
     {
-        #region
+#region
 #if UNITY_PC
         if (Input.GetKeyDown("Fire2"))
         {
@@ -345,7 +344,7 @@ public class TestGrab : MonoBehaviour
             audio.Play();
         }
 #endif
-        #endregion
+#endregion
         //Y를 누르면 화염방사를 실행하고싶다.
         if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
             && */OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))

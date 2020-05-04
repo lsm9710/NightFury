@@ -9,7 +9,7 @@ public class TestDragonMove : MonoBehaviour
 {
     //pc환경일때만 사용한다
 #if UNITY_PC
-    public float rotSpeed = 200;
+    public float rotPC_Speed = 200;
 
     float mx;
     float my;
@@ -83,8 +83,8 @@ public class TestDragonMove : MonoBehaviour
     }
      void RotateOBJ(float h, float v, ref float mx, ref float my)
     {
-        mx += h * rotSpeed * Time.deltaTime;
-        my += v * rotSpeed * Time.deltaTime;
+        mx += h * rotPC_Speed * Time.deltaTime;
+        my += v * rotPC_Speed * Time.deltaTime;
     }
 #endif
 
