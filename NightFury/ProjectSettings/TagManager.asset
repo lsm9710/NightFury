@@ -5,10 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ball_L
-  - Ball_R
   - Fire
   - CrossHair
   - ENEMY
+  - Pistol
   layers:
   - Default
   - TransparentFX
@@ -22,7 +22,7 @@ TagManager:
   - Start
   - FireBall
   - Player
-  - 
+  - Player_Bullet
   - 
   - 
   - 

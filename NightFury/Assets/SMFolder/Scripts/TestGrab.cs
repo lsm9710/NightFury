@@ -22,12 +22,9 @@ public class TestGrab : MonoBehaviour
     //public Transform grabObj_R;
     //손
     public Transform trL;
-    public Transform trR;
 
     public bool isTouched_L = false;
-    public bool isTouched_R = false;
     public bool isGrabed_L = false;
-    public bool isGrabed_R = false;
 
     //레이를 발사할 오리진 포스
     public Transform dragonMouth;
@@ -152,16 +149,15 @@ public class TestGrab : MonoBehaviour
     private void DropedOBJLTouch()
     {
         //왼손으로 물체를 놓을때
-        if (isGrabed_L && OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger))
+        if (isGrabed_L && OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger,OVRInput.Controller.LTouch))
         {
-            grabObj_L.SetParent(null);
+            grabObj_L.SetParent(camPos.transform);
             //Vector3 _velocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
             //grabObj_L.GetComponent<Rigidbody>().velocity = _velocity;
             grabObj_L.GetComponent<Rigidbody>().isKinematic = false;
 
             isGrabed_L = false;
             isTouched_L = true;
-            grabObj_L.parent = camPos.transform;
         }
     }
     #region
@@ -191,8 +187,11 @@ public class TestGrab : MonoBehaviour
             grabObj_L.SetParent(trL);
             grabObj_L.GetComponent<Rigidbody>().isKinematic = true;
             isGrabed_L = true;
+            //스로틀을 당겨 전진하는 매소드
             PullThrottleOrNot();
+            //입력으로 파이어볼을 발사하는 매소드
             FireBall();
+            //입력으로 브레스를 발사하는 메소드
             FlameThrow();
         }
     }
@@ -251,7 +250,6 @@ public class TestGrab : MonoBehaviour
         //X버튼을 누를때 파이어볼을 쏠거야
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch) && canUsefireball)
         {
-            Debug.Log("~~~~~~~~~~");
             pressX.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(FireBallCoolTime());
             //만약 탄창에 총알이 있다면
@@ -278,10 +276,6 @@ public class TestGrab : MonoBehaviour
                 fireBallListPool.Remove(bullet);
             }
             canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
-        }
-        else
-        {
-            Debug.Log("아직 사용할 수 없습니다");
         }
     }
     IEnumerator FireBallCoolTime()
@@ -310,17 +304,19 @@ public class TestGrab : MonoBehaviour
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {
+        #region
 #if UNITY_PC
-        if (Input.GetKey("Jump"))
+        if (Input.GetButton("Jump"))
         {
             state = MoveState.Flight;
         }
-        else if (!Input.GetKey("Jump"))
+
+        else if (!Input.GetButton("Jump"))
         {
             state = MoveState.SlowDown;
         }
 #endif
-
+        #endregion
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             state = MoveState.Flight;
@@ -336,7 +332,7 @@ public class TestGrab : MonoBehaviour
     {
 #region
 #if UNITY_PC
-        if (Input.GetKeyDown("Fire2"))
+        if (Input.GetButtonDown("Fire2"))
         {
             //공격애니메이션을 실행시킨다.
             state = MoveState.FlameThrow;
