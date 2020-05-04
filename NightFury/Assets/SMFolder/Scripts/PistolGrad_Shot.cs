@@ -19,6 +19,7 @@ public class PistolGrad_Shot : MonoBehaviour
     public GameObject camPos;
 
     Animator anim;
+    AudioSource audio;
     //오른손 UI에서 찾을 수 있는 Image
     public Image pressA;
 
@@ -34,6 +35,7 @@ public class PistolGrad_Shot : MonoBehaviour
     void Start()
     {
         anim = grabObj_R.GetComponentInChildren<Animator>();
+        audio = grabObj_R.GetComponent<AudioSource>();
 
         //탄창을 만들자
         for (int i = 0; i < amount; i ++)
@@ -101,6 +103,7 @@ public class PistolGrad_Shot : MonoBehaviour
             pressA.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(PistolCoolTime());
             anim.SetTrigger("Shoot");   //반동애니메이션
+            audio.Play();
             //만약 탄창에 총알이 있다면
             if (pistolBullet.Count > 0)
             {
