@@ -33,7 +33,7 @@ public class PistolGrad_Shot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        anim = grabObj_R.GetComponent<Animator>();
+        anim = grabObj_R.GetComponentInChildren<Animator>();
 
         //탄창을 만들자
         for (int i = 0; i < amount; i ++)
@@ -100,6 +100,7 @@ public class PistolGrad_Shot : MonoBehaviour
         {
             pressA.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(PistolCoolTime());
+            anim.SetTrigger("Shoot");   //반동애니메이션
             //만약 탄창에 총알이 있다면
             if (pistolBullet.Count > 0)
             {
