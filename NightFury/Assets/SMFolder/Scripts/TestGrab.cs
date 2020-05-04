@@ -62,6 +62,9 @@ public class TestGrab : MonoBehaviour
         tdm = GetComponent<TestDragonMove>();
         audio = fireballPos.GetComponent<AudioSource>();
 
+        //처음에는 스킬 버튼을 가리지 않음
+        pressX.fillAmount = 0f;
+
         //리스트로 탄창을 만들어 보자
         for (int i = 0; i < amount; i++)
         {
@@ -198,22 +201,25 @@ public class TestGrab : MonoBehaviour
     //파이어 볼을 쏠 위치
     public GameObject fireballPos;
     //파이어볼을 쏠거야
+    //if (leftTime > 0)
+    //{
+    //    leftTime -= Time.deltaTime;
+    //    if (leftTime < 0)
+    //    {
+    //        leftTime = 0;
+    //        float ratio = 1.0f - (leftTime / cool);
+    //        pressX.fillAmount = ratio;
+    //    }
+    //}
+    bool canUsefireball = true;
     private void FireBall()
     {
         //X버튼을 누를때 파이어볼을 쏠거야
-        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch))
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch) && canUsefireball)
         {
-            if (leftTime > 0)
-            {
-                leftTime -= Time.deltaTime;
-                if (leftTime < 0)
-                {
-                    leftTime = 0;
-                    float ratio = 1.0f - (leftTime / cool);
-                    pressX.fillAmount = ratio;
-                }
-            }
-
+            Debug.Log("~~~~~~~~~~");
+            pressX.fillAmount = 1f;     //스킬버튼을 가림
+            StartCoroutine(FireBallCoolTime());
             //만약 탄창에 총알이 있다면
             if (fireBallListPool.Count > 0)
             {
@@ -237,7 +243,22 @@ public class TestGrab : MonoBehaviour
                 //탄창에서 제거하자
                 fireBallListPool.Remove(bullet);
             }
+            canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
         }
+        else
+        {
+            Debug.Log("아직 사용할 수 없습니다");
+        }
+    }
+    IEnumerator FireBallCoolTime()
+    {
+        while(pressX.fillAmount > 0)
+        {
+            pressX.fillAmount -= 1 * Time.smoothDeltaTime / cool;
+            yield return null;
+        }
+        canUsefireball = true;
+        yield break;
     }
     #region
     //public EffectSettings effectSettings;
