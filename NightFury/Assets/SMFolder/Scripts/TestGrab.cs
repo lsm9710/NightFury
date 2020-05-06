@@ -87,7 +87,12 @@ public class TestGrab : MonoBehaviour
         //오른손으로 물체를 놓을때
         //DropedOBJRTouch();
 
+        PullThrottleOrNot();
+        FlameThrow();
+        FireBall();
         Switch();
+
+        UltimateGaugeCheck();
     }
 
     void Switch()
@@ -211,44 +216,16 @@ public class TestGrab : MonoBehaviour
     //    }
     //}
     bool canUsefireball = true;
+    //파이어볼 발사
     private void FireBall()
     {
         #region --------- | PC테스트 구문 | ---------
 #if UNITY_PC
         if (Input.GetButtonDown("Fire1") && canUsefireball)
-        {
-            Debug.Log("~~~~~~~~~~");
-            pressX.fillAmount = 1f;     //스킬버튼을 가림
-            StartCoroutine(FireBallCoolTime());
-            //만약 탄창에 총알이 있다면
-            if (fireBallListPool.Count > 0)
-            {
-                //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
-                bullet = fireBallListPool[0];
-
-                //제 위치에 가져다놓고
-                bullet.transform.position = fireballPos.transform.position;
-                bullet.transform.forward = fireballPos.transform.forward;
-                //파이어볼의 최대 사거리만큼 레이를 발사해
-                //레이사이에 검출되는녀석을 Target으로 만든다.
-                //DetectRayCast();
-
-                //활성화 시키고
-                bullet.SetActive(true);
-                //오디오를 재생시키자
-                audio.clip = fireball;
-                audio.Play();
-                //부모한테서 떼 내줘야한다.
-                //bullet.transform.parent = null;
-                //탄창에서 제거하자
-                fireBallListPool.Remove(bullet);
-            }
-            canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
-        }
+#else
+            //X버튼을 누를때 파이어볼을 쏠거야
+            if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch) && canUsefireball)
 #endif
-        #endregion 
-        //X버튼을 누를때 파이어볼을 쏠거야
-        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch) && canUsefireball)
         {
             pressX.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(FireBallCoolTime());
@@ -277,7 +254,9 @@ public class TestGrab : MonoBehaviour
             }
             canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
         }
+        #endregion 
     }
+    //파이어볼 쿨타임
     IEnumerator FireBallCoolTime()
     {
         while(pressX.fillAmount > 0)
@@ -304,54 +283,73 @@ public class TestGrab : MonoBehaviour
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {
+
         #region
 #if UNITY_PC
         if (Input.GetButton("Jump"))
-        {
-            state = MoveState.Flight;
-        }
-
-        else if (!Input.GetButton("Jump"))
-        {
-            state = MoveState.SlowDown;
-        }
+#else
+        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
 #endif
         #endregion
-        if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
         {
             state = MoveState.Flight;
         }
+#if UNITY_PC
+        else if (!Input.GetButton("Jump"))
+#else
         else if (!OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
+#endif
         {
             state = MoveState.SlowDown;
         }
     }
 
-
+    //궁게이지
+    public int ultimate = 0;
+    //궁극기게이지 최대치
+    int maximumUltimate = 100;
+    //화염방사
     private void FlameThrow()
     {
 #region
 #if UNITY_PC
         if (Input.GetButtonDown("Fire2"))
-        {
-            //공격애니메이션을 실행시킨다.
-            state = MoveState.FlameThrow;
-            audio.clip = flamethrow;
-            audio.Play();
-        }
-#endif
-#endregion
-        //Y를 누르면 화염방사를 실행하고싶다.
-        if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
+#else
+            //Y를 누르면 화염방사를 실행하고싶다.
+            if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
             && */OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
+#endif
+            #endregion
         {
-            //공격애니메이션을 실행시킨다.
-            state = MoveState.FlameThrow;
-            audio.clip = flamethrow;
-            audio.Play();
+            if (ultimate >= maximumUltimate)
+            {
+                Debug.Log("1111111111111111");
+                //공격애니메이션을 실행시킨다.
+                state = MoveState.FlameThrow;
+                audio.clip = flamethrow;
+                audio.Play();
+                ultimate = 0;
+            }
+            else
+            {
+                Debug.Log("아직 발사할 수 없습니다");
+            }
         }
         //화염방사 이펙트는 애니메이션에서 끄고 켜겠다.
     }
+
+    //궁극기(화염방사) 게이지를 체크하는 함수
+    private void UltimateGaugeCheck()
+    {
+        print(ultimate);
+        //궁극기 게이지가 100 이상이라면 100으로 맞춰라
+        if (ultimate >= maximumUltimate)
+        {
+            ultimate = maximumUltimate;
+        }
+        pressY.fillAmount = ultimate / maximumUltimate;
+    }
+
 
     void OnTriggerEnter(Collider coll)
     {

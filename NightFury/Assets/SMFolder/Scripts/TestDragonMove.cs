@@ -31,6 +31,8 @@ public class TestDragonMove : MonoBehaviour
     public float rotSpeed = 0.05f;
     //전진속도
     public float moveSpeed = 10f;
+    //최고속도
+    public float maxSpeed = 80f;
     //감소속도? 마찰력?
     public float drag = 1.0f;
 
@@ -67,7 +69,7 @@ public class TestDragonMove : MonoBehaviour
         //고개돌리는 반경에 제약을 두고싶다
         my = Mathf.Clamp(my, -90, 90);
 
-        transform.eulerAngles = new Vector2(-my, mx);
+        dragon.transform.eulerAngles = new Vector2(-my, mx);
 #endif
     }
 
@@ -90,12 +92,12 @@ public class TestDragonMove : MonoBehaviour
 
     public void GoForward()
     {
-        if (moveSpeed <= 80f)
+        if (moveSpeed <= maxSpeed)
         {
             moveSpeed += acceleration;
-            if (moveSpeed >= 80f)
+            if (moveSpeed >= maxSpeed)
             {
-                moveSpeed = 80f;
+                moveSpeed = maxSpeed;
             }
         }
 

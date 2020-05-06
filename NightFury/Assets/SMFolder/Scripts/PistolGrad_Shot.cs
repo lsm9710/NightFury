@@ -55,6 +55,8 @@ public class PistolGrad_Shot : MonoBehaviour
         GrabedOBJRTouch();
         //오른손으로 물체를 놓았는지 체크하는 매소드
         DropedOBJRTouch();
+
+        PistolGunShot();
     }
 
     //오른손으로 물체를 잡는지 체크하는 매소드
@@ -99,8 +101,12 @@ public class PistolGrad_Shot : MonoBehaviour
     //사용자 입력으로 총을 발사하는 매소드
     private void PistolGunShot()
     {
+#if UNITY_PC
+        if (Input.GetButtonDown("Fire3"))
+#else
         //A버튼을 눌러서 총을 발사한다
         if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
+#endif
         {
             pressA.fillAmount = 1f;     //스킬버튼을 가림
             StartCoroutine(PistolCoolTime());
