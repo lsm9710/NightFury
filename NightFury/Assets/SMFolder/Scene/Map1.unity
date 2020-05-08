@@ -316,7 +316,7 @@ GameObject:
   m_Layer: 0
   m_Name: Pillar
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -411,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968896209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -42.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -518,8 +518,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414879307}
-  - component: {fileID: 1414879306}
   - component: {fileID: 1414879308}
+  - component: {fileID: 1414879306}
   m_Layer: 0
   m_Name: gustnWkdWkdaos
   m_TagString: Untagged
@@ -534,11 +534,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1414879305}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f4388a31f0b20245b6e079343e3906b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  how_Many_Make: 100
 --- !u!4 &1414879307
 Transform:
   m_ObjectHideFlags: 0
@@ -570,6 +571,8 @@ MonoBehaviour:
   amount: 10
   pillar: {fileID: 879722287}
   blockPool: []
+  topBlockPool: []
+  bottomBlockPool: []
 --- !u!1001 &1749618919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -729,7 +732,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978397927}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 49.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
