@@ -87,9 +87,12 @@ public class TestGrab : MonoBehaviour
         //오른손으로 물체를 놓을때
         //DropedOBJRTouch();
 
+#if UNITY_PC
+
         PullThrottleOrNot();
         FlameThrow();
         FireBall();
+#endif
         Switch();
 
         UltimateGaugeCheck();
@@ -133,7 +136,7 @@ public class TestGrab : MonoBehaviour
         }
     }
 
-    #region
+#region
     //private void DropedOBJRTouch()
     //{
     //    //오른손으로 물체를 놓을때
@@ -149,7 +152,7 @@ public class TestGrab : MonoBehaviour
     //        grabObj_R.parent = camPos.transform;
     //    }
     //}
-    #endregion
+#endregion
 
     private void DropedOBJLTouch()
     {
@@ -165,7 +168,7 @@ public class TestGrab : MonoBehaviour
             isTouched_L = true;
         }
     }
-    #region
+#region
     //private void GrabedOBJRTouch()
     //{
     //    //오른손으로 물체를 잡을때
@@ -176,7 +179,7 @@ public class TestGrab : MonoBehaviour
     //        isGrabed_R = true;
     //    }
     //}
-    #endregion
+#endregion
 
     //버튼을 누를 수 있는 쿨타임
     public float cool = 1f;
@@ -219,7 +222,7 @@ public class TestGrab : MonoBehaviour
     //파이어볼 발사
     private void FireBall()
     {
-        #region --------- | PC테스트 구문 | ---------
+#region --------- | PC테스트 구문 | ---------
 #if UNITY_PC
         if (Input.GetButtonDown("Fire1") && canUsefireball)
 #else
@@ -254,7 +257,7 @@ public class TestGrab : MonoBehaviour
             }
             canUsefireball = false;     //스킬을 사용했으면 사용할 수 없는 상태로 바꿈
         }
-        #endregion 
+#endregion
     }
     //파이어볼 쿨타임
     IEnumerator FireBallCoolTime()
@@ -284,13 +287,13 @@ public class TestGrab : MonoBehaviour
     public void PullThrottleOrNot()
     {
 
-        #region
+#region
 #if UNITY_PC
         if (Input.GetButton("Jump"))
 #else
         if (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.LTouch))
 #endif
-        #endregion
+#endregion
         {
             state = MoveState.Flight;
         }
@@ -319,7 +322,7 @@ public class TestGrab : MonoBehaviour
             if (/*OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.LTouch)
             && */OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.LTouch))
 #endif
-            #endregion
+#endregion
         {
             if (ultimate >= maximumUltimate)
             {

@@ -56,6 +56,15 @@ public class PistolGrad_Shot : MonoBehaviour
         //오른손으로 물체를 놓았는지 체크하는 매소드
         DropedOBJRTouch();
 
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+        {
+            Debug.Log("안타?");
+            Player_HP ph = GameObject.Find("DragonMoveTest/CamPos/ControllerGrabTestPlayer").GetComponent<Player_HP>();
+            ph.currentHP -= 1;
+            ph.FieldOfView();
+            ph.isDelayHealingStart = true;
+        }
+
         PistolGunShot();
     }
 
