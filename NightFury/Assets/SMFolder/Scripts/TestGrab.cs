@@ -61,6 +61,8 @@ public class TestGrab : MonoBehaviour
 
         //처음에는 스킬 버튼을 가리지 않음
         pressX.fillAmount = 0f;
+        //너도 가리지마라
+        pressY.fillAmount = 0f;
 
         //리스트로 탄창을 만들어 보자
         for (int i = 0; i < amount; i++)
@@ -96,6 +98,8 @@ public class TestGrab : MonoBehaviour
         Switch();
 
         UltimateGaugeCheck();
+
+        pressY.fillAmount = ultimate * 0.01f;
     }
 
     void Switch()
@@ -344,7 +348,7 @@ public class TestGrab : MonoBehaviour
     //궁극기(화염방사) 게이지를 체크하는 함수
     private void UltimateGaugeCheck()
     {
-        print(ultimate);
+        //print(ultimate);
         //궁극기 게이지가 100 이상이라면 100으로 맞춰라
         if (ultimate >= maximumUltimate)
         {

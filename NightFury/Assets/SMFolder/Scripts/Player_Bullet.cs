@@ -38,7 +38,7 @@ public class Player_Bullet : MonoBehaviour
     //무언가에 충돌했으면
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("뭐야?");
+        print("나 얘랑 충돌헀어" +collision.gameObject.name);
         //다시 리스트에 넣고싶다
         ps.pistolBullet.Add(gameObject);
         //궁극기 게이지를 채우고 싶다
