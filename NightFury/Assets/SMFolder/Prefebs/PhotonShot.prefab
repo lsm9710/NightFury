@@ -9513,8 +9513,6 @@ MonoBehaviour:
   IsReverse: 1
   TimeDelay: 0
   IsLookAt: 1
-  par: {fileID: 0}
-  tg: {fileID: 0}
 --- !u!114 &1587762719251891009
 MonoBehaviour:
   m_ObjectHideFlags: 0
