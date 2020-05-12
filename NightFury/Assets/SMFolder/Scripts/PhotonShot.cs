@@ -29,8 +29,12 @@ public class PhotonShot : MonoBehaviour
         testgrab = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestGrab>();
         tm = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestDragonMove>();
         speed = tm.moveSpeed + plusSpeed;
-        StartCoroutine(StartLife());
+        
 #endif
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(StartLife());
     }
 
     // Update is called once per frame
@@ -69,4 +73,16 @@ public class PhotonShot : MonoBehaviour
         //플레이어의 TestGrad에 리스트에 다시 넣겠다.
         testgrab.fireBallListPool.Add(gameObject);
     }
+    //public void OnCollisionEnter(Collision collision)
+    //{
+    //    //무언가에 충돌하면 impact를 켜준다
+    //    impact.SetActive(true);
+    //    //트레일은 꺼야한다
+
+    //    print(collision.gameObject.name);
+    //    isImpact = true;
+    //    //무언가에 충돌할때마다 궁게이지를 채워주고싶다
+    //    //궁게이지는 무엇이고, 어디에다 채워줘야하나?
+    //    testgrab.ultimate += 10;
+    //}
 }

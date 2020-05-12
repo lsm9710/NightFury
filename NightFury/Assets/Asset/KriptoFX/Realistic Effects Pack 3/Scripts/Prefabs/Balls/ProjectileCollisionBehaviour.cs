@@ -94,7 +94,6 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
     frameDroped = false;
     
     tRoot = IsRootMove ? effectSettings.transform : transform.parent;
-        Debug.Log(IsRootMove);
     startPosition = tRoot.position;
 
     if (effectSettings.Target != null) tTarget = effectSettings.Target.transform;

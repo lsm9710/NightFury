@@ -58,14 +58,14 @@ public class PistolGrad_Shot : MonoBehaviour
         DropedOBJRTouch();
 
         #region ------ 플레이어 데미지 입히는곳-------
-        //if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
-        //{
-        //    Debug.Log("안타?");
-        //    Player_HP ph = GameObject.Find("DragonMoveTest/CamPos/ControllerGrabTestPlayer").GetComponent<Player_HP>();
-        //    ph.currentHP -= 1;
-        //    ph.FieldOfView();
-        //    ph.isDelayHealingStart = true;
-        //}
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+        {
+            Debug.Log("안타?");
+            Player_HP ph = GameObject.Find("DragonMoveTest/CamPos/ControllerGrabTestPlayer").GetComponent<Player_HP>();
+            ph.hp -= 50;
+            ph.FieldOfView();
+            ph.isDelayHealingStart = true;
+        }
         #endregion
 
         //PistolGunShot();

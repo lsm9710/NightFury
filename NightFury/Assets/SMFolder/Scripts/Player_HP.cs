@@ -12,7 +12,9 @@ public class Player_HP : MonoBehaviour
     public float currentHP;
 
     //죽었을때 생성될 게임오버 UI
-    //public GameObject deathUI;
+    public Canvas deathUI;
+    //페이드 인아웃할때 사용될 UI
+    public Image fadeINOUT;
 
     public float hp
     {
@@ -26,7 +28,7 @@ public class Player_HP : MonoBehaviour
             if (currentHP <= 0)
             {
                 print("GameOver");
-                //StartCoroutine(GameOver());
+                StartCoroutine(GameOver());
             }
         }
     }
@@ -34,6 +36,7 @@ public class Player_HP : MonoBehaviour
     private void Start()
     {
         currentHP = maxHP;
+        deathUI.gameObject.SetActive(false);
     }
     // Update is called once per frame
     void Update()
@@ -63,8 +66,8 @@ public class Player_HP : MonoBehaviour
         }
     }
 
-    //회복까지 걸리는 시간
     float time = 0f;
+    //회복까지 걸리는 시간
     public float delayhealing = 3f;
     //피격시에 동시에 불려서 HP를 서서히 회복할 함수
     void FadeOutBloodOverlay()
@@ -110,6 +113,32 @@ public class Player_HP : MonoBehaviour
         {
             currentHP = maxHP;
             StopCoroutine(NaturalHealing());
+        }
+    }
+
+    public float fadeInTime = 2f;
+    public float fadeOutTime = 2f;
+    //게임오버시에 실행될 시퀀스
+    IEnumerator GameOver()
+    {
+        //죽는 사운드
+        //화면 페이드 아웃
+        while (fadeINOUT.color.a < 1f)
+        {
+            Color c = fadeINOUT.color;
+            c.a+= (Time.deltaTime/ fadeInTime);
+            fadeINOUT.color = c;
+            yield return null;
+        }
+        deathUI.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1);
+
+        while (fadeINOUT.color.a > 0)
+        {
+            Color v = fadeINOUT.color;
+            v.a -= (Time.deltaTime / fadeOutTime);
+            fadeINOUT.color = v;
+            yield return null;
         }
     }
 }
