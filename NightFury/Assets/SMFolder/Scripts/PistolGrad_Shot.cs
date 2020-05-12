@@ -43,6 +43,7 @@ public class PistolGrad_Shot : MonoBehaviour
             //만들어서 넣고
             bullet = Instantiate(bulletFactory);
             pistolBullet.Add(bullet);
+            pistolBullet[i].transform.name = i.ToString();
             //비활성화 시켜놓는다
             bullet.SetActive(false);
         }
@@ -56,16 +57,18 @@ public class PistolGrad_Shot : MonoBehaviour
         //오른손으로 물체를 놓았는지 체크하는 매소드
         DropedOBJRTouch();
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
-        {
-            Debug.Log("안타?");
-            Player_HP ph = GameObject.Find("DragonMoveTest/CamPos/ControllerGrabTestPlayer").GetComponent<Player_HP>();
-            ph.currentHP -= 1;
-            ph.FieldOfView();
-            ph.isDelayHealingStart = true;
-        }
+        #region ------ 플레이어 데미지 입히는곳-------
+        //if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+        //{
+        //    Debug.Log("안타?");
+        //    Player_HP ph = GameObject.Find("DragonMoveTest/CamPos/ControllerGrabTestPlayer").GetComponent<Player_HP>();
+        //    ph.currentHP -= 1;
+        //    ph.FieldOfView();
+        //    ph.isDelayHealingStart = true;
+        //}
+        #endregion
 
-        PistolGunShot();
+        //PistolGunShot();
     }
 
     //오른손으로 물체를 잡는지 체크하는 매소드
@@ -131,17 +134,10 @@ public class PistolGrad_Shot : MonoBehaviour
                 //제 위치에 가져다놓고
                 bullet.transform.position = firPos.transform.position;
                 bullet.transform.forward = firPos.transform.forward;
-                //파이어볼의 최대 사거리만큼 레이를 발사해
-                //레이사이에 검출되는녀석을 Target으로 만든다.
-                //DetectRayCast();
 
                 //활성화 시키고
                 bullet.SetActive(true);
-                //오디오를 재생시키자
-                //GetComponent<AudioSource>().clip = fireball;
-                //GetComponent<AudioSource>().Play();
-                //부모한테서 떼 내줘야한다.
-                //bullet.transform.parent = null;
+                
                 //탄창에서 제거하자
                 pistolBullet.Remove(bullet);
             }
