@@ -68,7 +68,9 @@ public class PistolGrad_Shot : MonoBehaviour
         }
         #endregion
 
-        //PistolGunShot();
+#if UNITY_PC
+        PistolGunShot();
+#endif
     }
 
     //오른손으로 물체를 잡는지 체크하는 매소드
