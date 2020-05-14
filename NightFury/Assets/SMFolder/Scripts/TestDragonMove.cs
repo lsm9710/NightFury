@@ -124,9 +124,7 @@ public class TestDragonMove : MonoBehaviour
     public float orbit = 20f;
     private void RotTheDragon()
     {
-
         //만약 testGrab에 isGrabed가 true 라면 다음 행동을 취하겠다.
-
         if (testGrab.isGrabed_L == true)
         {
             angle = leftHand.localEulerAngles;
@@ -158,6 +156,10 @@ public class TestDragonMove : MonoBehaviour
                 color.a = 1;
                 blackImages[i].color = color;
             }
+            if (isVibrate == false)
+            {
+                //StartCoroutine(VibrateController(0.1f, ))
+            }
         }
         else
         {
@@ -168,5 +170,18 @@ public class TestDragonMove : MonoBehaviour
                 blackImages[y].color = color;
             }
         }
+    }
+
+    bool isVibrate = false;
+    //진동을 줄 코루틴
+    protected IEnumerator VibrateController(float waitTime, float frequenct, float amplitude, OVRInput.Controller controller)
+    {
+        while (true)
+        {
+            OVRInput.SetControllerVibration(frequenct, amplitude, controller);
+            yield return new WaitForSeconds(waitTime);
+            OVRInput.SetControllerVibration(0, 0, controller);
+        }
+        isVibrate = true;
     }
 }

@@ -21,44 +21,52 @@ public class PhotonShot : MonoBehaviour
     void Start()
     {
 #if UNITY_PC
-        testgrab = GameObject.Find("Camera").GetComponent<TestGrab>();
-        tm = GameObject.Find("Camera").GetComponent<TestDragonMove>();
-        speed = tm.moveSpeed + plusSpeed;
+        //testgrab = GameObject.Find("Camera").GetComponent<TestGrab>();
+        //tm = GameObject.Find("Camera").GetComponent<TestDragonMove>();
         //StartCoroutine(StartLife());
 #else
         testgrab = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestGrab>();
         tm = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestDragonMove>();
-        speed = tm.moveSpeed + plusSpeed;
         
 #endif
     }
     private void OnEnable()
     {
+#if UNITY_PC
+        testgrab = GameObject.Find("Camera").GetComponent<TestGrab>();
+        tm = GameObject.Find("Camera").GetComponent<TestDragonMove>();
+#else
+        testgrab = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestGrab>();
+        tm = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestDragonMove>();
+#endif
         StartCoroutine(StartLife());
+        speed = tm.moveSpeed + plusSpeed;
+        //불값 초기화
+        isImpact = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //날아갈 방향
-        Vector3 dir = transform.forward;
-        transform.position += dir * speed * Time.deltaTime;
-        
         //만약 충돌하고나면 
         if (isImpact)
         {
             StartCoroutine(Disable());
-            //불값 초기화
-            isImpact = false;
+        }
+        else
+        {
+            //날아갈 방향
+            Vector3 dir = transform.forward;
+            transform.position += dir * speed * Time.deltaTime;
         }
     }
     //파티클이 전부 꺼지는 시점
     public float endParticl = 1.5f;
     IEnumerator Disable()
     {
+        yield return new WaitForSeconds(endParticl);
         //플레이어의 TestGrad에 리스트에 다시 넣겠다.
         testgrab.fireBallListPool.Add(gameObject);
-        yield return new WaitForSeconds(endParticl);
         //날 비활성화 하고
         impact.SetActive(false);
         gameObject.SetActive(false);
@@ -81,6 +89,7 @@ public class PhotonShot : MonoBehaviour
 
         print(collision.gameObject.name);
         isImpact = true;
+        print(isImpact);
         //무언가에 충돌할때마다 궁게이지를 채워주고싶다
         //궁게이지는 무엇이고, 어디에다 채워줘야하나?
         testgrab.ultimate += 10;
