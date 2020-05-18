@@ -130,6 +130,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39501912}
   - component: {fileID: 39501911}
+  - component: {fileID: 39501913}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -151,6 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreUI: {fileID: 593355436}
   topUI: {fileID: 593355435}
+  canvas: {fileID: 0}
 --- !u!4 &39501912
 Transform:
   m_ObjectHideFlags: 0
@@ -159,12 +161,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39501910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.80731356, y: 10.229721, z: 11.476035}
+  m_LocalPosition: {x: -0.80731356, y: 10.229721, z: 19.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &39501913
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39501910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.55275, y: 9.962713, z: 12.080582}
+  m_Center: {x: 1.5828876, y: -4.4813566, z: -5.540291}
 --- !u!1 &477390669
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +284,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SuccessUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3377796539355753139, guid: c6adade1d2fe9144a848bcf4fa37fc1f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3377796539355753143, guid: c6adade1d2fe9144a848bcf4fa37fc1f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -282,7 +302,7 @@ PrefabInstance:
     - target: {fileID: 3377796539355753143, guid: c6adade1d2fe9144a848bcf4fa37fc1f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.51
+      value: 37.15
       objectReference: {fileID: 0}
     - target: {fileID: 3377796539355753143, guid: c6adade1d2fe9144a848bcf4fa37fc1f,
         type: 3}
@@ -373,6 +393,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3377796539355753136, guid: c6adade1d2fe9144a848bcf4fa37fc1f,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6adade1d2fe9144a848bcf4fa37fc1f, type: 3}

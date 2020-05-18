@@ -52,9 +52,12 @@ public class ScoreManager : MonoBehaviour
     }
     #endregion
 
+    public GameObject canvas;
+
     // Start is called before the first frame update
     void Start()
     {
+        canvas.GetComponent<Canvas>().enabled = false;
         //목표1 : 시작할때 점수를 UI에 표시하고싶다
         scoreUI.text = "Score : " + score;
         //목표 4 : 시작할때 저장된 값을 가져와서 화면에 표시하고 싶다.

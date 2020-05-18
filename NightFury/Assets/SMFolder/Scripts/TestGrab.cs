@@ -12,7 +12,8 @@ public class TestGrab : MonoBehaviour
         Idle,
         Flight,
         SlowDown,
-        FlameThrow
+        FlameThrow,
+        Gall
     }
     public MoveState state;
 
@@ -118,7 +119,17 @@ public class TestGrab : MonoBehaviour
                 anim.SetTrigger("FlameThrow");
                 ShootTheRay();
                 break;
+            case MoveState.Gall:
+                anim.SetTrigger("GallIN");
+                GallSequence();
+                break;
         }
+    }
+
+    private void GallSequence()
+    {
+        //드래곤메쉬한테 플레이어를 차일드시킨다
+        //
     }
 
     //모든걸 태워버릴 레이 발사
