@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+
     private int score;
     private int topScore;
 
@@ -24,19 +25,57 @@ public class ScoreManager : MonoBehaviour
         set
         {
             score = value;
-            //scoreUI.text = "Score : " + score;
-            //// -> 스코어가 탑스코어보다 크면 최대점수를 갱신하겠다
-            //if (score >= topScore)
-            //{
-            //    topScore = score;
-            //    //저장을 하고싶다 최고점수를
-            //    PlayerPrefs.SetInt(scoreSaveText, topScore);
-            //    topUI.text = "TopScore : " + topScore;
-            //}
+            //      -> 스코어가 탑스코어보다 크면 최대점수를 갱신하겠다
+            scoreUI.text = "Score : " + score;
+            if (score >= topScore)
+            {
+                topScore = score;
+                //목표3 : 저장을 하고싶다. -> 최고점수를 저장한다.
+                PlayerPrefs.SetInt(scoreSaveText, topScore);
+                topUI.text = "TopScore : " + topScore;
+            }
         }
     }
+
+    #region ----------------=========== 싱글톤============--------
+    //싱글톤 구현
+    //게시판(static) 등록할 속성이 필요 => 객체(ScoreManager)
+    public static ScoreManager instance;
+
     private void Awake()
     {
-        instance = this;
+        //만약에 Instance에 값이 없으면
+        if (instance == null)
+        {
+            instance = this;
+        }
+        // -> Instance에 나 자신을 넣겠다.
+
+    }
+    #endregion
+
+    public GameObject canvas;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        canvas.GetComponent<Canvas>().enabled = false;
+        //목표1 : 시작할때 점수를 UI에 표시하고싶다
+        scoreUI.text = "Score : " + score;
+        //목표 4 : 시작할때 저장된 값을 가져와서 화면에 표시하고 싶다.
+        //필요속성 : 저장된 값을 받을 그릇(topScore), 그값을 표시할 UI(topUI)
+        //1. 점수가 있으니까  -> 불러왔으니까
+        //  -> 저장된 점수를 불러온다.
+        //  -> 그 값을 topScore에 넣는다.
+        topScore = PlayerPrefs.GetInt(scoreSaveText, 0);
+        //2. 화면에 표시하고 싶다.
+        topUI.text = "TopScore : " + topScore;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+
+        }
     }
 }

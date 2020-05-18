@@ -98,5 +98,10 @@ public class PhotonShot : MonoBehaviour
         //무언가에 충돌할때마다 궁게이지를 채워주고싶다
         //궁게이지는 무엇이고, 어디에다 채워줘야하나?
         testgrab.ultimate += 10;
+        //충돌한게 에너미일때만 점수를 채워준다
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ENEMY"))
+        {
+            ScoreManager.instance.Score += 30;
+        }
     }
 }
