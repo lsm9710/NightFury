@@ -14,8 +14,6 @@ public class ScoreManager : MonoBehaviour
 
     public static string scoreSaveText = "TopScore";
 
-    public static ScoreManager instance;
-
     public int Score
     {
         get
