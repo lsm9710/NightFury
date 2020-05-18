@@ -66,6 +66,17 @@ public class Player_HP : MonoBehaviour
         }
     }
 
+    //진동을 조절할 변수들
+    public float vivTime, fre, amp;
+    //피격시에 진동을 일으킬 코루틴
+    IEnumerator HITViveration(float time, float frequ, float amplit, OVRInput.Controller controller)
+    {
+        OVRInput.SetControllerVibration(frequ, amplit, controller);
+
+        yield return new WaitForSeconds(time);
+        OVRInput.SetControllerVibration(0, 0, controller);
+    }
+
     float time = 0f;
     //회복까지 걸리는 시간
     public float delayhealing = 3f;

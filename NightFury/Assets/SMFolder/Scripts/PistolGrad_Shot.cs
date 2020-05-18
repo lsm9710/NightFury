@@ -130,6 +130,7 @@ public class PistolGrad_Shot : MonoBehaviour
             //만약 탄창에 총알이 있다면
             if (pistolBullet.Count > 0)
             {
+                StartCoroutine(GunShotViveration(time, fre, amp, OVRInput.Controller.RTouch));
                 //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
                 bullet = pistolBullet[0];
 
@@ -147,7 +148,27 @@ public class PistolGrad_Shot : MonoBehaviour
         }
     }
 
+    public float time, fre, amp;
+    //오른손에 진동을 일으킬 코루틴
+    IEnumerator GunShotViveration(float time, float frequ, float amplit, OVRInput.Controller controller)
+    {
+        OVRInput.SetControllerVibration(frequ, amplit, controller);
+
+        yield return new WaitForSeconds(time);
+        OVRInput.SetControllerVibration(0, 0, controller);
+    }
+
+    //충돌시에는 발사와 다른 강도가 필요하다
+    public float crashTime, crashFre, crashAmp;
+    //유도탄이 성공적으로 표적에 충동했을때 불릴 매서드
+    public void GuidedBombHittingSuccess()
+    {
+        StartCoroutine(GunShotViveration(crashTime, crashFre, crashAmp, OVRInput.Controller.RTouch));
+    }
+
+
     public float cool = 0.6f;
+    //피스톨 쿨타임
     IEnumerator PistolCoolTime()
     {
         while(pressA.fillAmount > 0)
@@ -158,6 +179,8 @@ public class PistolGrad_Shot : MonoBehaviour
         canUsePistol = true;
         yield break;
     }
+
+    //권총을 잡게해주는 트리거 체크
     void OnTriggerEnter(Collider coll)
     {
         if (coll.CompareTag("Pistol"))

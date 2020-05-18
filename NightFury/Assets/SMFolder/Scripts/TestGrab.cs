@@ -223,6 +223,9 @@ public class TestGrab : MonoBehaviour
     //    }
     //}
     bool canUsefireball = true;
+
+    //발사시 진동을 체크할 변수
+    public float time, fre, amp;
     //파이어볼 발사
     private void FireBall()
     {
@@ -239,6 +242,7 @@ public class TestGrab : MonoBehaviour
             //만약 탄창에 총알이 있다면
             if (fireBallListPool.Count > 0)
             {
+                StartCoroutine(Vibration(time, fre, amp, OVRInput.Controller.LTouch));
                 //리스트를 사용하여 오브젝트풀에서 총알하나 뽑자
                 bullet = fireBallListPool[0];
 
@@ -274,6 +278,15 @@ public class TestGrab : MonoBehaviour
         canUsefireball = true;
         yield break;
     }
+
+    //파이어볼 발사할때 진동을 줄 코루틴
+    IEnumerator Vibration(float time, float frequ, float amplit, OVRInput.Controller controller)
+    {
+        OVRInput.SetControllerVibration(frequ, amplit, controller);
+
+        yield return new WaitForSeconds(time);
+        OVRInput.SetControllerVibration(0, 0, controller);
+    }
 #region
     //public EffectSettings effectSettings;
     //private void DetectRayCast()
@@ -286,7 +299,7 @@ public class TestGrab : MonoBehaviour
     //        effectSettings.Target = hit.collider.gameObject;
     //    }
     //}
-#endregion
+    #endregion
     //스로틀을 당기고 있는지 여부를 체크하는 함수
     public void PullThrottleOrNot()
     {

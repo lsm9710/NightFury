@@ -86,6 +86,11 @@ public class PhotonShot : MonoBehaviour
         //무언가에 충돌하면 impact를 켜준다
         impact.SetActive(true);
         //트레일은 꺼야한다
+        //충돌한게 에너미일때만 점수를 추가한다
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ENEMY") )
+        {
+
+        }
 
         print(collision.gameObject.name);
         isImpact = true;

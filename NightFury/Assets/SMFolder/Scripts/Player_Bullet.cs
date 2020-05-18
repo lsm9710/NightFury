@@ -158,6 +158,7 @@ public class Player_Bullet : MonoBehaviour
         GameObject explosion = Instantiate(boom);
         explosion.transform.position = collision.contacts[0].point;
         explosion.transform.forward = collision.contacts[0].normal;
+        ps.GuidedBombHittingSuccess();
 
 
         //궁극기 게이지를 채우고 싶다
