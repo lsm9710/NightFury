@@ -69,4 +69,11 @@ public class ScoreManager : MonoBehaviour
         //2. 화면에 표시하고 싶다.
         topUI.text = "TopScore : " + topScore;
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            
+        }
+    }
 }
