@@ -120,16 +120,46 @@ public class TestGrab : MonoBehaviour
                 ShootTheRay();
                 break;
             case MoveState.Gall:
-                anim.SetTrigger("GallIN");
-                GallSequence();
+                Debug.Log("111111111111");
+                if (a == false)
+                {
+                    Debug.Log("22222222222222");
+                    anim.SetTrigger("GallIn");
+                    GallSequence();
+                }
                 break;
         }
     }
 
+    //가장 상위 부모를 저장할 변수
+    public GameObject dragon;
+
+    //실제로 움직이는 드래곤매쉬를 저장할 변수
+    public GameObject dragonMesh;
+
+    //차일드시킬 플레이어를 저장할 변수
+    public GameObject player;
+
+    //감소속도? 마찰력?
+    public float drag = 1.0f;
+
+    public float deceleration = 1.0f;
+    //전진속도
+    public float moveSpeed = 0f;
+
+    bool a = false;
     private void GallSequence()
     {
+        Debug.Log("333333333");
+        a = true;
         //드래곤메쉬한테 플레이어를 차일드시킨다
-        //
+        player.transform.SetParent(dragonMesh.transform);
+        //오른손 스크립트를 꺼버리자
+        tdm.enabled = false;
+        //속도를 멈춰버리자
+        drag = deceleration;
+        moveSpeed *= drag;
+        dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
     }
 
     //모든걸 태워버릴 레이 발사

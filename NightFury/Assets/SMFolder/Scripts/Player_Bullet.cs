@@ -153,7 +153,7 @@ public class Player_Bullet : MonoBehaviour
     {
         print("나 얘랑 충돌헀어" +collision.gameObject.name);
         //충돌한게 에너미일때만 점수를 추가
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ENEMY"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             ScoreManager.instance.Score += 10;
         }

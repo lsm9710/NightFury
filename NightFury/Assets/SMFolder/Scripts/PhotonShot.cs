@@ -87,10 +87,6 @@ public class PhotonShot : MonoBehaviour
         impact.SetActive(true);
         //트레일은 꺼야한다
         //충돌한게 에너미일때만 점수를 추가한다
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ENEMY") )
-        {
-
-        }
 
         print(collision.gameObject.name);
         isImpact = true;
@@ -99,7 +95,7 @@ public class PhotonShot : MonoBehaviour
         //궁게이지는 무엇이고, 어디에다 채워줘야하나?
         testgrab.ultimate += 10;
         //충돌한게 에너미일때만 점수를 채워준다
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ENEMY"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             ScoreManager.instance.Score += 30;
         }

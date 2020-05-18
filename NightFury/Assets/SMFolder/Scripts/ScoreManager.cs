@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class ScoreManager : MonoBehaviour
 
     public Text scoreUI;
     public Text topUI;
+
+    TestGrab tg;
 
     public static string scoreSaveText = "TopScore";
 
@@ -57,7 +60,7 @@ public class ScoreManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas.GetComponent<Canvas>().enabled = false;
+        canvas.SetActive(false);
         //목표1 : 시작할때 점수를 UI에 표시하고싶다
         scoreUI.text = "Score : " + score;
         //목표 4 : 시작할때 저장된 값을 가져와서 화면에 표시하고 싶다.
@@ -68,12 +71,27 @@ public class ScoreManager : MonoBehaviour
         topScore = PlayerPrefs.GetInt(scoreSaveText, 0);
         //2. 화면에 표시하고 싶다.
         topUI.text = "TopScore : " + topScore;
+
+        tg = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestGrab>();
     }
+    bool a = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player") && a == false)
         {
-
+            StartCoroutine(ShowSuccessUI());
         }
+    }
+
+    public float endTime;
+    IEnumerator ShowSuccessUI()
+    {
+        a = true;
+        //드래곤한테 랜딩하라고 얘기하고 싶다
+        tg.state = TestGrab.MoveState.Gall;
+        //일정시간 뒤에 UI를 보여주고싶다
+        //일정시간은 랜딩 애니메이션이 끝났을때
+        yield return new WaitForSeconds(0);
+        canvas.SetActive(true);
     }
 }
