@@ -89,6 +89,10 @@ public class TestGrab : MonoBehaviour
         DropedOBJLTouch();
         //오른손으로 물체를 놓을때
         //DropedOBJRTouch();
+        if (ScoreManager.instance.a == true)
+        {
+            state = MoveState.Gall;
+        }
 
 #if UNITY_PC
 
@@ -160,6 +164,8 @@ public class TestGrab : MonoBehaviour
         drag = deceleration;
         moveSpeed *= drag;
         dragon.transform.localPosition += dragon.transform.forward * moveSpeed * Time.deltaTime;
+        //나도 꺼버리자
+        this.enabled = false;
     }
 
     //모든걸 태워버릴 레이 발사

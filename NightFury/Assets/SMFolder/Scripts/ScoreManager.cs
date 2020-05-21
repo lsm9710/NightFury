@@ -74,7 +74,7 @@ public class ScoreManager : MonoBehaviour
 
         tg = GameObject.Find("OVRControllerPrefab_L").GetComponent<TestGrab>();
     }
-    bool a = false;
+    public bool a = false;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player") && a == false)
@@ -91,7 +91,7 @@ public class ScoreManager : MonoBehaviour
         tg.state = TestGrab.MoveState.Gall;
         //일정시간 뒤에 UI를 보여주고싶다
         //일정시간은 랜딩 애니메이션이 끝났을때
-        yield return new WaitForSeconds(0);
+        yield return new WaitForSeconds(endTime);
         canvas.SetActive(true);
     }
 }
